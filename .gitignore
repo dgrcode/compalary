@@ -1,0 +1,14 @@
+# Node modules
+node_modules
+
+# Yarn files
+yarn.lock
+
+# Private files
+.*
+!.gitignore
+!.babel.rc
+!.eslintrc.json
+
+# Babel cache
+babel_cache
