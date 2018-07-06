@@ -9,6 +9,8 @@ import rentIndexData from '../data/rentIndex.json';
 import Header from './components/Header';
 import Comparator from './components/Comparator';
 
+const currencyConversionApi = (fromCurrency, toCurrency) => `https://free.currencyconverterapi.com/api/v5/convert?q=${fromCurrency}_${toCurrency}&compact=ultra`;
+
 const store = createStore(() => {});
 
 const App = ({ store }) => (
