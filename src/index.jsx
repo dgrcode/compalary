@@ -4,6 +4,8 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
+import rentIndexData from '../data/rentIndex.json';
+
 import Header from './components/Header';
 import Comparator from './components/Comparator';
 
@@ -13,7 +15,7 @@ const App = ({ store }) => (
   <Provider store={store}>
     <div>
       <Header />
-      <Comparator />
+      <Comparator rentIndexData={rentIndexData}/>
     </div>
   </Provider>
 );
