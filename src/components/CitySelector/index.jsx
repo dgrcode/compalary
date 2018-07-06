@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export default class CitySelector extends React.Component {
+class CitySelector extends React.Component {
   static propTypes = {
     rentIndexData: PropTypes.array.isRequired
   }
@@ -74,3 +75,9 @@ export default class CitySelector extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  rentIndexData: state.data.rentIndexData
+});
+
+export default connect(mapStateToProps)(CitySelector);

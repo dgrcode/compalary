@@ -5,19 +5,24 @@ import { Provider } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
 import rentIndexData from '../data/rentIndex.json';
-
+import reducer from './reducers';
 import Header from './components/Header';
 import Comparator from './components/Comparator';
 
 const currencyConversionApi = (fromCurrency, toCurrency) => `https://free.currencyconverterapi.com/api/v5/convert?q=${fromCurrency}_${toCurrency}&compact=ultra`;
 
-const store = createStore(() => {});
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+store.dispatch({
+  type: 'DATA_RENT_INDEX',
+  payload: { rentIndexData }
+});
 
 const App = ({ store }) => (
   <Provider store={store}>
     <div>
       <Header />
-      <Comparator rentIndexData={rentIndexData}/>
+      <Comparator />
     </div>
   </Provider>
 );
