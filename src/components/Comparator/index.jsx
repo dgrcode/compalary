@@ -1,12 +1,13 @@
 import React from 'react';
-import CitySelector from '../CitySelector';
+import CityCard from '../CityCard';
+import CityCardReference from '../CityCardReference';
 
 export default class Comparator extends React.Component {
   render () {
     return (
       <div>
-        <CitySelector id={`citySelector1`} />
-        <CitySelector id={`citySelector2`} />
+        <CityCardReference />
+        <CityCard />
       </div>
     );
   }

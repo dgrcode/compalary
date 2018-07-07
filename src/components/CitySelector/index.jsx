@@ -9,7 +9,7 @@ class CitySelector extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      selectedCountry: 'United States',
+      selectedCountry: 'Ireland',
       selectedCity: '',
       cities: ['']
     };
