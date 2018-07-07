@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 
 class CitySelector extends React.Component {
   static propTypes = {
-    rentIndexData: PropTypes.array.isRequired
+    rentIndexData: PropTypes.array.isRequired,
+    handleCitySelected: PropTypes.func.isRequired
   }
   constructor (props) {
     super(props);
@@ -23,17 +24,19 @@ class CitySelector extends React.Component {
   }
 
   handleCountryChange = evt => {
-    console.log(`country changed to ${evt.target.value}`);
     const selectedCountry = evt.target.value;
 
     this.countrySelected(selectedCountry);
   }
 
   handleCityChange = evt => {
-    console.log(`city changed to ${evt.target.value}`);
+    const idx = evt.target.value;
+    const cityInfo = this.state.cities[idx];
+
+    this.props.handleCitySelected(cityInfo);
 
     this.setState({
-      selectedCity: evt.target.value
+      selectedCity: cityInfo.city
     });
   }
 
@@ -65,8 +68,8 @@ class CitySelector extends React.Component {
         <label> City
           <select id="city-select" defaultValue={selectedCity} onChange={this.handleCityChange}>
             {
-              this.state.cities.map(({ fullName, rentIdx }, idx) => (
-                <option key={idx} value={rentIdx}>{fullName}</option>
+              this.state.cities.map((cityInfo, idx) => (
+                <option key={idx} value={idx}>{cityInfo.fullName}</option>
               ))
             }
           </select>

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import CityCard from '../CityCard';
 import CityCardReference from '../CityCardReference';
 
@@ -7,7 +8,7 @@ export default class Comparator extends React.Component {
     return (
       <div>
         <CityCardReference />
-        <CityCard />
+        <CityCard cardId="card0" />
       </div>
     );
   }

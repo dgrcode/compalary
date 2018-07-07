@@ -6,6 +6,7 @@ const dataReducer = (state = defaultState, action) => {
     return Object.assign({}, state, {
       rentIndexData: action.payload.rentIndexData
     });
+    break;
 
   default:
     return state;
