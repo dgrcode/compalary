@@ -23,6 +23,12 @@ const cardReducer = (state = defaultState, action) => {
     });
     break;
 
+  case 'RESET_CITY':
+    cardId = action.payload.cardId;
+    return Object.assign({}, state, {
+      [cardId]: {}
+    });
+
   default:
     return state;
   }

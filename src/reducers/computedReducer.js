@@ -2,15 +2,22 @@ const defaultState = {
   card0: {}
 };
 
+const resetSalaries = {
+  gitlab: 0
+};
+
 const sfRentIdx = 106.49;
 const computedReducer = (state = defaultState, action, fullState) => {
+  let nextState;
+  let cardId;
+
   switch (action.type) {
   case 'REQUEST_SALARIES_UPDATE':
     let referenceData = fullState.reference;
     let refSalary = referenceData.salary;
     let refRentIdx = referenceData.cityInfo.rentIdx;
 
-    const nextState = Object.assign({}, state);
+    nextState = Object.assign({}, state);
 
     for (let cardId in state) {
       const cardState = fullState.card[cardId];
@@ -27,8 +34,28 @@ const computedReducer = (state = defaultState, action, fullState) => {
     return nextState;
     break;
 
+  case 'RESET_SALARIES':
+    nextState = Object.assign({}, state);
+
+    for (let cardId in state) {
+      const cardState = fullState.card[cardId];
+      if (!cardState.cityInfo) {
+        continue;
+      }
+
+      nextState[cardId] = resetSalaries;
+    }
+
+    return nextState;
+
+  case 'RESET_CITY':
+    cardId = action.payload.cardId;
+    nextState = Object.assign({}, state);
+    nextState[cardId] = resetSalaries;
+    return nextState;
+
   case 'REQUEST_CARD_SALARY_UPDATE':
-    const cardId = action.payload.cardId;
+    cardId = action.payload.cardId;
     referenceData = fullState.reference;
     refSalary = referenceData.salary;
     refRentIdx = referenceData.cityInfo.rentIdx;

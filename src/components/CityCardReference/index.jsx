@@ -9,16 +9,17 @@ class CityCardReference extends React.Component {
   static propTypes = {
     requestSalariesUpdate: PropTypes.func.isRequired,
     onSalaryChanged: PropTypes.func.isRequired,
-    updateCitySelected: PropTypes.func.isRequired,
-    referenceSalary: PropTypes.number
-  }
-
-  constructor (props) {
-    super(props);
+    updateReferenceCity: PropTypes.func.isRequired,
+    resetReferenceCity: PropTypes.func.isRequired,
+    resetSalaries: PropTypes.func.isRequired,
+    referenceSalary: PropTypes.number.isRequired,
+    hasReferenceCity: PropTypes.bool.isRequired
   }
 
   componentDidUpdate () {
-    this.props.requestSalariesUpdate();
+    if (this.props.hasReferenceCity) {
+      this.props.requestSalariesUpdate();
+    }
   }
 
   handleSalaryChanged = evt => {
@@ -26,7 +27,13 @@ class CityCardReference extends React.Component {
   }
 
   handleCitySelected = cityInfo => {
-    this.props.updateCitySelected(cityInfo);
+    if (cityInfo === null) {
+      this.props.resetReferenceCity();
+      this.props.resetSalaries();
+      return;
+    }
+
+    this.props.updateReferenceCity(cityInfo);
     this.props.requestSalariesUpdate();
   }
 
@@ -43,7 +50,8 @@ class CityCardReference extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  referenceSalary: state.reference.salary
+  referenceSalary: state.reference.salary,
+  hasReferenceCity: state.reference.cityInfo !== undefined
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -56,9 +64,17 @@ const mapDispatchToProps = dispatch => ({
     type: 'REQUEST_SALARIES_UPDATE'
   }),
 
-  updateCitySelected: cityInfo => dispatch({
+  updateReferenceCity: cityInfo => dispatch({
     type: 'UPDATE_REFERENCE_CITY',
     payload: { cityInfo }
+  }),
+
+  resetReferenceCity: () => dispatch({
+    type: 'RESET_REFERENCE_CITY'
+  }),
+
+  resetSalaries: () => dispatch({
+    type: 'RESET_SALARIES'
   })
 });
 

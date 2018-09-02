@@ -1,5 +1,5 @@
 const defaultState = {
-  salary: ''
+  salary: 0
 };
 
 const referenceReducer = (state = defaultState, action) => {
@@ -8,7 +8,7 @@ const referenceReducer = (state = defaultState, action) => {
     const nextSalary = Number.parseFloat(action.payload.nextSalary);
 
     return Object.assign({}, state, {
-      salary: isNaN(nextSalary) ? '' : nextSalary
+      salary: isNaN(nextSalary) ? 0 : nextSalary
     });
     break;
 
@@ -17,6 +17,11 @@ const referenceReducer = (state = defaultState, action) => {
       cityInfo: action.payload.cityInfo
     });
     break;
+
+  case 'RESET_REFERENCE_CITY':
+    const nextState = { ...state };
+    delete nextState.cityInfo;
+    return nextState;
 
   default:
     return state;

@@ -20,6 +20,12 @@ class CityCard extends React.Component {
   }
 
   handleCitySelected = cityInfo => {
+    if (cityInfo === null) {
+      this.props.resetCity(this.props.cardId);
+      this.props.resetCitySalary(this.props.cardId);
+      return;
+    }
+
     this.props.updateCitySelected(this.props.cardId, cityInfo);
     this.props.requestCardSalaryUpdate(this.props.cardId);
   }
@@ -49,6 +55,11 @@ const mapDispatchToProps = dispatch => ({
 
   requestCardSalaryUpdate: cardId => dispatch({
     type: 'REQUEST_CARD_SALARY_UPDATE',
+    payload: { cardId }
+  }),
+
+  resetCity: cardId => dispatch({
+    type: 'RESET_CITY',
     payload: { cardId }
   })
 });
