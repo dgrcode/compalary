@@ -4,6 +4,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
+import './res/styles/global.sass';
 import rentIndexData from '../data/rentIndex.json';
 import reducer from './reducers';
 import Header from './components/Header';

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
+import '../../res/styles/citycard.sass';
 import CitySelector from '../CitySelector';
 
 class CityCard extends React.Component {
@@ -25,7 +26,7 @@ class CityCard extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className="citycard">
         <CitySelector handleCitySelected={this.handleCitySelected} />
         <span>{this.props.computed[this.props.cardId] ? this.props.computed[this.props.cardId].gitlab : 0}</span>
       </div>

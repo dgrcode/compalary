@@ -2,6 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 
+import '../../res/styles/citycard.sass';
 import CitySelector from '../CitySelector';
 
 class CityCardReference extends React.Component {
@@ -31,7 +32,7 @@ class CityCardReference extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className="citycard reference">
         <CitySelector handleCitySelected={this.handleCitySelected}/>
         <label>Salary
           <input type="text" value={this.props.referenceSalary} onChange={this.handleSalaryChanged} />
