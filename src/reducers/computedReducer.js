@@ -14,28 +14,27 @@ const computedReducer = (state = defaultState, action, fullState) => {
   switch (action.type) {
   case 'REQUEST_SALARIES_UPDATE':
     let referenceData = fullState.reference;
+    if (!referenceData.cityInfo || !referenceData.currency) return state;
+
     let refSalary = referenceData.salary;
     let refRentIdx = referenceData.cityInfo.rentIdx;
 
-    nextState = Object.assign({}, state);
+    nextState = { ...state };
 
     for (let cardId in state) {
       const cardState = fullState.card[cardId];
-      if (!cardState.cityInfo) {
-        continue;
-      }
+      if (!cardState.cityInfo || !cardState.currency) continue;
+
       const rentIdx = cardState.cityInfo.rentIdx;
 
       nextState[cardId] = {
         gitlab: Math.round(refSalary * (0.7 * rentIdx / sfRentIdx + 0.3) / (0.7 * refRentIdx / sfRentIdx + 0.3))
       };
     }
-
     return nextState;
-    break;
 
   case 'RESET_SALARIES':
-    nextState = Object.assign({}, state);
+    nextState = { ...state };
 
     for (let cardId in state) {
       const cardState = fullState.card[cardId];
@@ -45,30 +44,33 @@ const computedReducer = (state = defaultState, action, fullState) => {
 
       nextState[cardId] = resetSalaries;
     }
-
     return nextState;
 
   case 'RESET_CITY':
     cardId = action.payload.cardId;
-    nextState = Object.assign({}, state);
+    nextState = { ...state };
     nextState[cardId] = resetSalaries;
     return nextState;
 
   case 'REQUEST_CARD_SALARY_UPDATE':
     cardId = action.payload.cardId;
     referenceData = fullState.reference;
+
+    if (!referenceData.cityInfo || !referenceData.currency) return state;
     refSalary = referenceData.salary;
     refRentIdx = referenceData.cityInfo.rentIdx;
 
     const cardState = fullState.card[cardId];
+    if (!cardState.cityInfo || !cardState.currency) return state;
+
     const rentIdx = cardState.cityInfo.rentIdx;
 
-    return Object.assign({}, state, {
+    return {
+      ...state,
       [cardId]: {
         gitlab: Math.round(refSalary * (0.7 * rentIdx / sfRentIdx + 0.3) / (0.7 * refRentIdx / sfRentIdx + 0.3))
       }
-    });
-    break;
+    };
 
   default:
     return state;
