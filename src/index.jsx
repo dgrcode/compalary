@@ -18,16 +18,22 @@ store.dispatch({
   payload: { rentIndexData }
 });
 
-fetch(currencyConversionUrl('EUR', 'USD'))
-  .then(res => res.json())
-  .then(res => store.dispatch({
-    type: 'EXCHANGE_RATE_UPDATE',
-    payload: {
-      currencyFrom: 'EUR',
-      currencyTo: 'USD',
-      value: res.EUR_USD
-    }
-  }));
+const addCurrencyExchange = (currencyA, currencyB) => {
+  fetch(currencyConversionUrl(currencyA, currencyB))
+    .then(res => res.json())
+    .then(res => store.dispatch({
+      type: 'EXCHANGE_RATE_UPDATE',
+      payload: {
+        currencyFrom: currencyA,
+        currencyTo: currencyB,
+        value: res[`${currencyA}_${currencyB}`]
+      }
+    }));
+};
+
+addCurrencyExchange('EUR', 'USD');
+addCurrencyExchange('EUR', 'GBP');
+addCurrencyExchange('GBP', 'USD');
 
 const App = ({ store }) => (
   <Provider store={store}>

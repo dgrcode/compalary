@@ -10,6 +10,9 @@ const moneyOptions = [
   {
     value: 'USD',
     label: '$ (USD)'
+  }, {
+    value: 'GBP',
+    label: '£ (GBP)'
   }
 ];
 
