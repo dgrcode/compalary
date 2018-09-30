@@ -40,11 +40,13 @@ const cardReducer = (state = defaultState, action) => {
       }
     };
 
-  case 'RESET_CITY':
+  case 'RESET_CITY_INFO':
     cardId = action.payload.cardId;
     return {
       ...state,
-      [cardId]: {}
+      [cardId]: {
+        currency: state[cardId].currency
+      }
     };
 
   default:
