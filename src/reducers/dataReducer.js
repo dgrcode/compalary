@@ -21,7 +21,15 @@ const dataReducer = (state = defaultState, action) => {
     const nextState = { ...state };
 
     if (!nextState.exchangeRate.from.hasOwnProperty(currencyFrom)) {
-      nextState.exchangeRate.from[currencyFrom] = { to: {} };
+      nextState.exchangeRate.from[currencyFrom] = { to: {
+        [currencyFrom]: 1
+      } };
+    }
+
+    if (!nextState.exchangeRate.from.hasOwnProperty(currencyTo)) {
+      nextState.exchangeRate.from[currencyTo] = { to: {
+        [currencyTo]: 1
+      } };
     }
 
     return {
@@ -33,6 +41,12 @@ const dataReducer = (state = defaultState, action) => {
             to: {
               ...nextState.exchangeRate.from[currencyFrom].to,
               [currencyTo]: value
+            }
+          },
+          [currencyTo]: {
+            to: {
+              ...nextState.exchangeRate.from[currencyTo].to,
+              [currencyFrom]: 1 / value
             }
           }
         }

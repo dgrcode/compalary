@@ -6,6 +6,9 @@ const resetSalaries = {
   gitlab: 0
 };
 
+const computeGitlabSalary = (refSalary, refRentIdx, rentIdx, sfRentIdx) =>
+  Math.round(refSalary * (0.7 * rentIdx / sfRentIdx + 0.3) / (0.7 * refRentIdx / sfRentIdx + 0.3));
+
 const sfRentIdx = 106.49;
 const computedReducer = (state = defaultState, action, fullState) => {
   let nextState;
@@ -24,11 +27,12 @@ const computedReducer = (state = defaultState, action, fullState) => {
     for (let cardId in state) {
       const cardState = fullState.card[cardId];
       if (!cardState.cityInfo || !cardState.currency) continue;
+      const exchangeRate = fullState.data.exchangeRate.from[referenceData.currency].to[cardState.currency];
 
       const rentIdx = cardState.cityInfo.rentIdx;
 
       nextState[cardId] = {
-        gitlab: Math.round(refSalary * (0.7 * rentIdx / sfRentIdx + 0.3) / (0.7 * refRentIdx / sfRentIdx + 0.3))
+        gitlab: Math.round(computeGitlabSalary(refSalary, refRentIdx, rentIdx, sfRentIdx) * exchangeRate)
       };
     }
     return nextState;
@@ -65,10 +69,12 @@ const computedReducer = (state = defaultState, action, fullState) => {
 
     const rentIdx = cardState.cityInfo.rentIdx;
 
+    const exchangeRate = fullState.data.exchangeRate.from[referenceData.currency].to[cardState.currency];
+
     return {
       ...state,
       [cardId]: {
-        gitlab: Math.round(refSalary * (0.7 * rentIdx / sfRentIdx + 0.3) / (0.7 * refRentIdx / sfRentIdx + 0.3))
+        gitlab: Math.round(computeGitlabSalary(refSalary, refRentIdx, rentIdx, sfRentIdx) * exchangeRate)
       }
     };
 
