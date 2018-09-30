@@ -8,7 +8,8 @@ import CityPicker from './CityPicker';
 class CitySelector extends React.Component {
   static propTypes = {
     rentIndexData: PropTypes.array.isRequired,
-    handleCitySelected: PropTypes.func.isRequired
+    handleCitySelected: PropTypes.func.isRequired,
+    className: PropTypes.string
   }
 
   handleCityChange = cityInfo => {
@@ -21,7 +22,7 @@ class CitySelector extends React.Component {
 
   render () {
     return (
-      <div className="citySelector">
+      <div className={`citySelector ${this.props.className}`}>
         <CityPicker
           cities={this.props.rentIndexData}
           handleCityChange={this.handleCityChange}

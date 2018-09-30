@@ -47,11 +47,14 @@ class CityCardReference extends React.Component {
   render () {
     return (
       <div className="citycard reference">
-        <CitySelector handleCitySelected={this.handleCitySelected}/>
-        <label>Salary
+        <div className="flex">
+          <CitySelector className="growWidth marginRight" handleCitySelected={this.handleCitySelected}/>
+          <CurrencySelector handleCurrencySelected={this.handleCurrencySelected} />
+        </div>
+        <div className="withMargin">
+          Salary:
           <input type="text" value={this.props.referenceSalary} onChange={this.handleSalaryChanged} />
-        </label>
-        <CurrencySelector handleCurrencySelected={this.handleCurrencySelected} />
+        </div>
       </div>
     );
   }
