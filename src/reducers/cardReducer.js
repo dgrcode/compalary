@@ -18,10 +18,24 @@ const cardReducer = (state = defaultState, action) => {
   case 'UPDATE_CARD_CITY':
     cardId = action.payload.cardId;
     let cityInfo = action.payload.cityInfo;
-    return Object.assign({}, state, {
-      [cardId]: { cityInfo }
-    });
-    break;
+    return {
+      ...state,
+      [cardId]: {
+        ...state[cardId],
+        cityInfo
+      }
+    };
+
+  case 'UPDATE_CARD_CURRENCY':
+    cardId = action.payload.cardId;
+    let currency = action.payload.currency;
+    return {
+      ...state,
+      [cardId]: {
+        ...state[cardId],
+        currency
+      }
+    };
 
   case 'RESET_CITY':
     cardId = action.payload.cardId;

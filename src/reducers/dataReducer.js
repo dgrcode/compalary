@@ -8,6 +8,12 @@ const dataReducer = (state = defaultState, action) => {
     });
     break;
 
+  case 'EXCHANGE_RATE_EUR_USD':
+    return {
+      ...state,
+      exchangeRateEurUsd: action.payload.value
+    };
+
   default:
     return state;
   }

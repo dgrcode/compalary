@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-virtualized-select';
 
-import "react-select/dist/react-select.css";
-import "react-virtualized-select/styles.css";
+import '../../res/styles/oldSelect.css';
+import 'react-virtualized-select/styles.css';
 
 export default class CityPicker extends React.Component {
   static propTypes = {
@@ -15,7 +15,7 @@ export default class CityPicker extends React.Component {
     super(props);
 
     this.state = {
-      selectedOption: -1
+      selectedOption: null
     };
   }
 

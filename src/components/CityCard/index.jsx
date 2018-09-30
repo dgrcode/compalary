@@ -4,12 +4,14 @@ import { PropTypes } from 'prop-types';
 
 import '../../res/styles/citycard.sass';
 import CitySelector from '../CitySelector';
+import CurrencyPicker from '../CurrencySelector';
 
 class CityCard extends React.Component {
   static propTypes = {
     computed: PropTypes.object,
     cardId: PropTypes.string.isRequired,
     updateCitySelected: PropTypes.func.isRequired,
+    updateCurrencySelected: PropTypes.func.isRequired,
     requestCardSalaryUpdate: PropTypes.func.isRequired
   }
 
@@ -30,10 +32,16 @@ class CityCard extends React.Component {
     this.props.requestCardSalaryUpdate(this.props.cardId);
   }
 
+  handleCurrencySelected = currency => {
+    this.props.updateCurrencySelected(this.props.cardId, currency);
+    this.props.requestCardSalaryUpdate(this.props.cardId);
+  }
+
   render () {
     return (
       <div className="citycard">
         <CitySelector handleCitySelected={this.handleCitySelected} />
+        <CurrencyPicker handleCurrencySelected={this.handleCurrencySelected}/>
         <span>{this.props.computed[this.props.cardId] ? this.props.computed[this.props.cardId].gitlab : 0}</span>
       </div>
     );
@@ -50,6 +58,14 @@ const mapDispatchToProps = dispatch => ({
     payload: {
       cardId,
       cityInfo
+    }
+  }),
+
+  updateCurrencySelected: (cardId, currency) => dispatch({
+    type: 'UPDATE_CARD_CURRENCY',
+    payload: {
+      cardId,
+      currency
     }
   }),
 

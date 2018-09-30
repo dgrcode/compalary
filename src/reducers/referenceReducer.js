@@ -18,6 +18,12 @@ const referenceReducer = (state = defaultState, action) => {
     });
     break;
 
+  case 'UPDATE_REFERENCE_CURRENCY':
+    return {
+      ...state,
+      currency: action.payload.currency
+    };
+
   case 'RESET_REFERENCE_CITY':
     const nextState = { ...state };
     delete nextState.cityInfo;

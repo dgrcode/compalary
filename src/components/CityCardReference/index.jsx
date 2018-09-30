@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 
 import '../../res/styles/citycard.sass';
 import CitySelector from '../CitySelector';
+import CurrencySelector from '../CurrencySelector';
 
 class CityCardReference extends React.Component {
   static propTypes = {
     requestSalariesUpdate: PropTypes.func.isRequired,
     onSalaryChanged: PropTypes.func.isRequired,
     updateReferenceCity: PropTypes.func.isRequired,
+    updateReferenceCurrency: PropTypes.func.isRequired,
     resetReferenceCity: PropTypes.func.isRequired,
     resetSalaries: PropTypes.func.isRequired,
     referenceSalary: PropTypes.number.isRequired,
@@ -37,6 +39,11 @@ class CityCardReference extends React.Component {
     this.props.requestSalariesUpdate();
   }
 
+  handleCurrencySelected = currency => {
+    this.props.updateReferenceCurrency(currency);
+    this.props.requestSalariesUpdate();
+  }
+
   render () {
     return (
       <div className="citycard reference">
@@ -44,6 +51,7 @@ class CityCardReference extends React.Component {
         <label>Salary
           <input type="text" value={this.props.referenceSalary} onChange={this.handleSalaryChanged} />
         </label>
+        <CurrencySelector handleCurrencySelected={this.handleCurrencySelected} />
       </div>
     );
   }
@@ -67,6 +75,11 @@ const mapDispatchToProps = dispatch => ({
   updateReferenceCity: cityInfo => dispatch({
     type: 'UPDATE_REFERENCE_CITY',
     payload: { cityInfo }
+  }),
+
+  updateReferenceCurrency: currency => dispatch({
+    type: 'UPDATE_REFERENCE_CURRENCY',
+    payload: { currency }
   }),
 
   resetReferenceCity: () => dispatch({
