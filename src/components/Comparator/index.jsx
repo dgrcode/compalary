@@ -7,7 +7,9 @@ export default class Comparator extends React.Component {
   render () {
     return (
       <div>
-        <CityCardReference />
+        <div className="flex">
+          <CityCardReference />
+        </div>
         <CityCard cardId="card0" />
       </div>
     );
