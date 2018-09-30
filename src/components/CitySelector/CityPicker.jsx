@@ -49,6 +49,7 @@ export default class CityPicker extends React.Component {
           onChange={this.handleChange}
           isClearable
           clearValue={this.handleClearValue}
+          placeholder="Select a city..."
         />
       </div>
     );

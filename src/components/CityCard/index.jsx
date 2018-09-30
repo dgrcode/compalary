@@ -44,7 +44,7 @@ class CityCard extends React.Component {
           <CitySelector className="growWidth marginRight" handleCitySelected={this.handleCitySelected} />
           <CurrencyPicker handleCurrencySelected={this.handleCurrencySelected}/>
         </div>
-        <span>{this.props.computed[this.props.cardId] ? this.props.computed[this.props.cardId].gitlab : 0}</span>
+        <div className="withMargin">Gitlab: {this.props.computed[this.props.cardId] ? this.props.computed[this.props.cardId].gitlab : 0}</div>
       </div>
     );
   }
