@@ -1,4 +1,7 @@
-const defaultState = {};
+const defaultState = {
+  rentIndexData: {},
+  exchangeRate: { from: {} }
+};
 
 const dataReducer = (state = defaultState, action) => {
   switch (action.type) {
@@ -8,10 +11,32 @@ const dataReducer = (state = defaultState, action) => {
     });
     break;
 
-  case 'EXCHANGE_RATE_EUR_USD':
+  case 'EXCHANGE_RATE_UPDATE':
+    const {
+      currencyFrom,
+      currencyTo,
+      value
+    } = action.payload;
+
+    const nextState = { ...state };
+
+    if (!nextState.exchangeRate.from.hasOwnProperty(currencyFrom)) {
+      nextState.exchangeRate.from[currencyFrom] = { to: {} };
+    }
+
     return {
-      ...state,
-      exchangeRateEurUsd: action.payload.value
+      ...nextState,
+      exchangeRate: {
+        from: {
+          ...nextState.exchangeRate.from,
+          [currencyFrom]: {
+            to: {
+              ...nextState.exchangeRate.from[currencyFrom].to,
+              [currencyTo]: value
+            }
+          }
+        }
+      }
     };
 
   default:

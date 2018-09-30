@@ -21,8 +21,10 @@ store.dispatch({
 fetch(currencyConversionUrl('EUR', 'USD'))
   .then(res => res.json())
   .then(res => store.dispatch({
-    type: 'EXCHANGE_RATE_EUR_USD',
+    type: 'EXCHANGE_RATE_UPDATE',
     payload: {
+      currencyFrom: 'EUR',
+      currencyTo: 'USD',
       value: res.EUR_USD
     }
   }));
