@@ -1,13 +1,16 @@
+import uuid from 'uuid/v4';
+
 const defaultState = {
-  card0: {
+  [uuid()]: {
     currency: 'EUR'
   }
 };
 
 const cardReducer = (state = defaultState, action) => {
+  let cardId;
   switch (action.type) {
   case 'UPDATE_CARD_PROPERTY':
-    let cardId = action.payload.cardId;
+    cardId = action.payload.cardId;
     let propertyName = action.payload.propertyName;
     let nextValue = action.payload.nextValue;
     return {
@@ -46,6 +49,14 @@ const cardReducer = (state = defaultState, action) => {
       ...state,
       [cardId]: {
         currency: state[cardId].currency
+      }
+    };
+
+  case 'ADD_CITY_CARD':
+    return {
+      ...state,
+      [uuid()]: {
+        currency: 'EUR'
       }
     };
 
