@@ -17,7 +17,9 @@ export const Comparator = ({ cards }) => (
           <CityCard key={cardId} cardId={cardId} />
         )
       }
-      <AddCardButton />
+      {Object.keys(cards).length < 4 &&
+        <AddCardButton />
+      }
     </div>
   </div>
 )
