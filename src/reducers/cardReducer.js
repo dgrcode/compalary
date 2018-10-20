@@ -1,3 +1,4 @@
+import { produce } from 'immer'
 import uuid from 'uuid/v4'
 
 const defaultState = {
@@ -6,63 +7,47 @@ const defaultState = {
   }
 }
 
-const cardReducer = (state = defaultState, action) => {
-  let cardId
-  switch (action.type) {
-    case 'UPDATE_CARD_PROPERTY':
-      cardId = action.payload.cardId
-      let propertyName = action.payload.propertyName
-      let nextValue = action.payload.nextValue
-      return {
-        ...state,
-        [cardId]: {
-          ...state[cardId],
-          [propertyName]: nextValue
-        }
-      }
+const cardReducer = (state = defaultState, action) =>
+  produce(state, draft => {
+    let cardId
+    switch (action.type) {
+      case 'UPDATE_CARD_PROPERTY':
+        cardId = action.payload.cardId
+        let propertyName = action.payload.propertyName
+        let nextValue = action.payload.nextValue
+        draft[cardId][propertyName] = nextValue
+        break
 
-    case 'UPDATE_CARD_CITY':
-      cardId = action.payload.cardId
-      let cityInfo = action.payload.cityInfo
-      return {
-        ...state,
-        [cardId]: {
-          ...state[cardId],
-          cityInfo
-        }
-      }
+      case 'UPDATE_CARD_CITY':
+        cardId = action.payload.cardId
+        let cityInfo = action.payload.cityInfo
+        draft[cardId].cityInfo = cityInfo
+        break
 
-    case 'UPDATE_CARD_CURRENCY':
-      cardId = action.payload.cardId
-      let currency = action.payload.currency
-      return {
-        ...state,
-        [cardId]: {
-          ...state[cardId],
-          currency
-        }
-      }
+      case 'UPDATE_CARD_CURRENCY':
+        cardId = action.payload.cardId
+        let currency = action.payload.currency
+        draft[cardId].currency = currency
+        break
 
-    case 'RESET_CITY_INFO':
-      cardId = action.payload.cardId
-      return {
-        ...state,
-        [cardId]: {
+      case 'RESET_CITY_INFO':
+        cardId = action.payload.cardId
+        draft[cardId] = {
           currency: state[cardId].currency
         }
-      }
+        break
 
-    case 'ADD_CITY_CARD':
-      return {
-        ...state,
-        [uuid()]: {
+      case 'ADD_CITY_CARD':
+        draft[uuid()] = {
           currency: 'EUR'
         }
-      }
+        break
 
-    default:
-      return state
-  }
-}
+      case 'REMOVE_CITY_CARD':
+        cardId = action.payload.cardId
+        delete draft[cardId]
+        break
+    }
+  })
 
 export default cardReducer
