@@ -1,11 +1,11 @@
-"use strict";
+'use strict'
 
-const webpack = require('webpack');
-const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack')
+const path = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const extractSass = new ExtractTextPlugin(
-  { filename: '[name].css' });
+  { filename: '[name].css' })
 
 module.exports = {
   mode: 'production',
@@ -51,4 +51,4 @@ module.exports = {
     }),
     extractSass
   ]
-};
+}

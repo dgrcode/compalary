@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Select from 'react-select';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Select from 'react-select'
 
 const moneyOptions = [
   {
@@ -14,7 +14,7 @@ const moneyOptions = [
     value: 'GBP',
     label: '£ (GBP)'
   }
-];
+]
 
 const customStyle = {
   indicatorsContainer: () => ({ display: 'none' }),
@@ -23,28 +23,26 @@ const customStyle = {
     width: '80px',
     backgroundColor: 'white'
   })
-};
+}
 
 export default class CurrencyPicker extends React.Component {
-  static propTypes = {
-    handleCurrencySelected: PropTypes.func.isRequired
-  };
-
   constructor (props) {
-    super(props);
+    super(props)
 
     this.state = {
       selectedOption: moneyOptions[0]
-    };
+    }
+
+    this.handleSelect = this.handleSelect.bind(this)
   }
 
-  handleSelect = arg => {
-    this.setState({ selectedOption: arg });
-    this.props.handleCurrencySelected(arg.value);
+  handleSelect (arg) {
+    this.setState({ selectedOption: arg })
+    this.props.handleCurrencySelected(arg.value)
   }
 
   render () {
-    const { selectedOption } = this.state;
+    const { selectedOption } = this.state
 
     return (
       <Select
@@ -54,6 +52,10 @@ export default class CurrencyPicker extends React.Component {
         value={selectedOption}
         isSearchable={false}
       />
-    );
+    )
   }
+}
+
+CurrencyPicker.propTypes = {
+  handleCurrencySelected: PropTypes.func.isRequired
 }

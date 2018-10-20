@@ -3,25 +3,11 @@
     "__DEV__": false,
     "jest": false
   },
-	"rules": {
-    "indent": [
-      "error",
-      2
-    ],
-    "no-unused-vars": [
-      "error",
-      {"varsIgnorePattern": "_$|^React$"}
-    ],
-		"prefer-reflect": [
-			"error",
-			{"exceptions": ["delete"]}
-    ]
-  },
   "env": {
     "es6": true,
     "node": true,
     "browser": true,
     "jest": true
   },
-  "extends": "react"
+  "extends": ["standard", "standard-react"]
 }

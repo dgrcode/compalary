@@ -1,58 +1,63 @@
-import React from 'react';
-import { PropTypes } from 'prop-types';
-import { connect } from 'react-redux';
+import React from 'react'
+import { PropTypes } from 'prop-types'
+import { connect } from 'react-redux'
 
-import '../../res/styles/citycard.sass';
-import CitySelector from '../CitySelector';
-import CurrencySelector from '../CurrencySelector';
+import '../../res/styles/citycard.sass'
+import CitySelector from '../CitySelector'
+import CurrencySelector from '../CurrencySelector'
 
 class CityCardReference extends React.Component {
-  static propTypes = {
-    onSalaryChanged: PropTypes.func.isRequired,
-    updateReferenceCity: PropTypes.func.isRequired,
-    updateReferenceCurrency: PropTypes.func.isRequired,
-    resetReferenceCity: PropTypes.func.isRequired,
-    referenceSalary: PropTypes.number.isRequired,
-    hasReferenceCity: PropTypes.bool.isRequired
+  constructor (props) {
+    super(props)
+
+    this.handleSalaryChanged = this.handleSalaryChanged.bind(this)
+    this.handleCitySelected = this.handleCitySelected.bind(this)
+    this.handleCurrencySelected = this.handleCurrencySelected.bind(this)
+  }
+  handleSalaryChanged (evt) {
+    this.props.onSalaryChanged(evt.target.value)
   }
 
-  handleSalaryChanged = evt => {
-    this.props.onSalaryChanged(evt.target.value);
-  }
-
-  handleCitySelected = cityInfo => {
+  handleCitySelected (cityInfo) {
     if (cityInfo === null) {
-      this.props.resetReferenceCity();
-      return;
+      this.props.resetReferenceCity()
+      return
     }
 
-    this.props.updateReferenceCity(cityInfo);
+    this.props.updateReferenceCity(cityInfo)
   }
 
-  handleCurrencySelected = currency => {
-    this.props.updateReferenceCurrency(currency);
+  handleCurrencySelected (currency) {
+    this.props.updateReferenceCurrency(currency)
   }
 
   render () {
     return (
-      <div className="citycard reference">
-        <div className="flex">
-          <CitySelector className="growWidth marginRight" handleCitySelected={this.handleCitySelected}/>
+      <div className='citycard reference'>
+        <div className='flex'>
+          <CitySelector className='growWidth marginRight' handleCitySelected={this.handleCitySelected} />
           <CurrencySelector handleCurrencySelected={this.handleCurrencySelected} />
         </div>
-        <div className="withMargin">
+        <div className='withMargin'>
           Salary:
-          <input type="text" value={this.props.referenceSalary} onChange={this.handleSalaryChanged} />
+          <input type='text' value={this.props.referenceSalary} onChange={this.handleSalaryChanged} />
         </div>
       </div>
-    );
+    )
   }
 }
 
+CityCardReference.propTypes = {
+  onSalaryChanged: PropTypes.func.isRequired,
+  updateReferenceCity: PropTypes.func.isRequired,
+  updateReferenceCurrency: PropTypes.func.isRequired,
+  resetReferenceCity: PropTypes.func.isRequired,
+  referenceSalary: PropTypes.number.isRequired
+}
+
 const mapStateToProps = state => ({
-  referenceSalary: state.reference.salary,
-  hasReferenceCity: state.reference.cityInfo !== undefined
-});
+  referenceSalary: state.reference.salary
+})
 
 const mapDispatchToProps = dispatch => ({
   onSalaryChanged: nextSalary => dispatch({
@@ -73,6 +78,6 @@ const mapDispatchToProps = dispatch => ({
   resetReferenceCity: () => dispatch({
     type: 'RESET_REFERENCE_CITY'
   })
-});
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(CityCardReference);
+export default connect(mapStateToProps, mapDispatchToProps)(CityCardReference)

@@ -1,22 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { PropTypes } from 'prop-types';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import { PropTypes } from 'prop-types'
 
-import './res/styles/global.sass';
-import rentIndexData from '../data/rentIndex.json';
-import reducer from './reducers';
-import Header from './components/Header';
-import Comparator from './components/Comparator';
-import { currencyConversionUrl } from './utils';
+import './res/styles/global.sass'
+import rentIndexData from '../data/rentIndex.json'
+import reducer from './reducers'
+import Header from './components/Header'
+import Comparator from './components/Comparator'
+import { currencyConversionUrl } from './utils'
 
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 store.dispatch({
   type: 'DATA_RENT_INDEX',
   payload: { rentIndexData }
-});
+})
 
 const addCurrencyExchange = (currencyA, currencyB) => {
   fetch(currencyConversionUrl(currencyA, currencyB))
@@ -28,12 +28,12 @@ const addCurrencyExchange = (currencyA, currencyB) => {
         currencyTo: currencyB,
         value: res[`${currencyA}_${currencyB}`]
       }
-    }));
-};
+    }))
+}
 
-addCurrencyExchange('EUR', 'USD');
-addCurrencyExchange('EUR', 'GBP');
-addCurrencyExchange('GBP', 'USD');
+addCurrencyExchange('EUR', 'USD')
+addCurrencyExchange('EUR', 'GBP')
+addCurrencyExchange('GBP', 'USD')
 
 const App = ({ store }) => (
   <Provider store={store}>
@@ -42,13 +42,13 @@ const App = ({ store }) => (
       <Comparator />
     </div>
   </Provider>
-);
+)
 
 App.propTypes = {
   store: PropTypes.object.isRequired
-};
+}
 
 ReactDOM.render(
-  <App store={store}/>,
+  <App store={store} />,
   document.getElementById('root')
-);
+)
