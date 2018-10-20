@@ -8,20 +8,12 @@ import CurrencySelector from '../CurrencySelector';
 
 class CityCardReference extends React.Component {
   static propTypes = {
-    requestSalariesUpdate: PropTypes.func.isRequired,
     onSalaryChanged: PropTypes.func.isRequired,
     updateReferenceCity: PropTypes.func.isRequired,
     updateReferenceCurrency: PropTypes.func.isRequired,
     resetReferenceCity: PropTypes.func.isRequired,
-    resetSalaries: PropTypes.func.isRequired,
     referenceSalary: PropTypes.number.isRequired,
     hasReferenceCity: PropTypes.bool.isRequired
-  }
-
-  componentDidUpdate () {
-    if (this.props.hasReferenceCity) {
-      this.props.requestSalariesUpdate();
-    }
   }
 
   handleSalaryChanged = evt => {
@@ -31,17 +23,14 @@ class CityCardReference extends React.Component {
   handleCitySelected = cityInfo => {
     if (cityInfo === null) {
       this.props.resetReferenceCity();
-      this.props.resetSalaries();
       return;
     }
 
     this.props.updateReferenceCity(cityInfo);
-    this.props.requestSalariesUpdate();
   }
 
   handleCurrencySelected = currency => {
     this.props.updateReferenceCurrency(currency);
-    this.props.requestSalariesUpdate();
   }
 
   render () {
@@ -71,10 +60,6 @@ const mapDispatchToProps = dispatch => ({
     payload: { nextSalary }
   }),
 
-  requestSalariesUpdate: () => dispatch({
-    type: 'REQUEST_SALARIES_UPDATE'
-  }),
-
   updateReferenceCity: cityInfo => dispatch({
     type: 'UPDATE_REFERENCE_CITY',
     payload: { cityInfo }
@@ -87,10 +72,6 @@ const mapDispatchToProps = dispatch => ({
 
   resetReferenceCity: () => dispatch({
     type: 'RESET_REFERENCE_CITY'
-  }),
-
-  resetSalaries: () => dispatch({
-    type: 'RESET_SALARIES'
   })
 });
 

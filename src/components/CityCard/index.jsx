@@ -6,14 +6,15 @@ import '../../res/styles/citycard.sass';
 import CitySelector from '../CitySelector';
 import CurrencyPicker from '../CurrencySelector';
 
+import { equivalentSalary } from '../../selectors/computedSelector';
+
 class CityCard extends React.Component {
   static propTypes = {
     computed: PropTypes.object,
     cardId: PropTypes.string.isRequired,
     updateCitySelected: PropTypes.func.isRequired,
     updateCurrencySelected: PropTypes.func.isRequired,
-    resetCityInfo: PropTypes.func.isRequired,
-    requestCardSalaryUpdate: PropTypes.func.isRequired
+    resetCityInfo: PropTypes.func.isRequired
   }
 
   constructor (props) {
@@ -29,12 +30,10 @@ class CityCard extends React.Component {
     }
 
     this.props.updateCitySelected(this.props.cardId, cityInfo);
-    this.props.requestCardSalaryUpdate(this.props.cardId);
   }
 
   handleCurrencySelected = currency => {
     this.props.updateCurrencySelected(this.props.cardId, currency);
-    this.props.requestCardSalaryUpdate(this.props.cardId);
   }
 
   render () {
@@ -44,14 +43,14 @@ class CityCard extends React.Component {
           <CitySelector className="growWidth marginRight" handleCitySelected={this.handleCitySelected} />
           <CurrencyPicker handleCurrencySelected={this.handleCurrencySelected}/>
         </div>
-        <div className="withMargin">Gitlab: {this.props.computed[this.props.cardId] ? this.props.computed[this.props.cardId].gitlab : 0}</div>
+        <div className="withMargin">Gitlab: {this.props.computed ? this.props.computed.gitlab : 0}</div>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  computed: state.computed
+const mapStateToProps = (state, { cardId }) => ({
+  computed: equivalentSalary(state, cardId)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -69,11 +68,6 @@ const mapDispatchToProps = dispatch => ({
       cardId,
       currency
     }
-  }),
-
-  requestCardSalaryUpdate: cardId => dispatch({
-    type: 'REQUEST_CARD_SALARY_UPDATE',
-    payload: { cardId }
   }),
 
   resetCityInfo: cardId => dispatch({
