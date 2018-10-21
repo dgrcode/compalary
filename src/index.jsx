@@ -9,6 +9,7 @@ import rentIndexData from '../data/rentIndex.json'
 import reducer from './reducers'
 import Header from './components/Header'
 import Comparator from './components/Comparator'
+import Footer from './components/Footer'
 import { currencyConversionUrl } from './utils'
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
@@ -40,6 +41,7 @@ const App = ({ store }) => (
     <div>
       <Header />
       <Comparator />
+      <Footer />
     </div>
   </Provider>
 )
