@@ -38,11 +38,11 @@ addCurrencyExchange('GBP', 'USD')
 
 const App = ({ store }) => (
   <Provider store={store}>
-    <div>
+    <React.Fragment>
       <Header />
       <Comparator />
       <Footer />
-    </div>
+    </React.Fragment>
   </Provider>
 )
 
