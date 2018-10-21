@@ -6,7 +6,7 @@ const defaultState = {
 const referenceReducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'CHANGE_REFERENCE_SALARY':
-      const nextSalary = Number.parseFloat(action.payload.nextSalary)
+      const nextSalary = Number.parseFloat(action.payload.nextSalary.replace(/,/g, ''))
 
       return {
         ...state,

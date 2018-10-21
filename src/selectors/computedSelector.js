@@ -18,6 +18,6 @@ export const equivalentSalary = (state, cardId) => {
   const rentIdx = cardState.cityInfo.rentIdx
 
   return {
-    gitlab: Math.round(computeGitlabSalary(refSalary, refRentIdx, rentIdx, sfRentIdx) * exchangeRate)
+    gitlab: Math.round(computeGitlabSalary(refSalary, refRentIdx, rentIdx, sfRentIdx) * exchangeRate).toLocaleString()
   }
 }

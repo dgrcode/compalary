@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import './style.sass'
 import CitySelector from '../CitySelector'
 import CurrencySelector from '../CurrencySelector'
+import { referenceSalary } from '../../selectors/referenceSelector'
 
 class CityCardReference extends React.Component {
   constructor (props) {
@@ -46,7 +47,7 @@ class CityCardReference extends React.Component {
 }
 
 CityCardReference.propTypes = {
-  referenceSalary: PropTypes.number.isRequired,
+  referenceSalary: PropTypes.string.isRequired,
   onSalaryChanged: PropTypes.func.isRequired,
   resetReferenceCity: PropTypes.func.isRequired,
   updateReferenceCity: PropTypes.func.isRequired,
@@ -54,7 +55,7 @@ CityCardReference.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  referenceSalary: state.reference.salary
+  referenceSalary: referenceSalary(state)
 })
 
 const mapDispatchToProps = dispatch => ({
