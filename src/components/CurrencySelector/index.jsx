@@ -16,14 +16,24 @@ const moneyOptions = [
   }
 ]
 
-const customStyle = {
+const customStyle = className => ({
   indicatorsContainer: () => ({ display: 'none' }),
   control: base => ({
     ...base,
     width: '80px',
-    backgroundColor: 'white'
+    backgroundColor: className === 'overDark' ? '#fff4' : 'white',
+    borderColor: '#0002',
+    cursor: 'pointer'
+  }),
+  option: base => ({
+    ...base,
+    color: 'rgba(0, 0, 0, .87)'
+  }),
+  singleValue: base => ({
+    ...base,
+    color: className === 'overDark' ? 'white' : 'rgba(0, 0, 0, .87)'
   })
-}
+})
 
 export default class CurrencyPicker extends React.Component {
   constructor (props) {
@@ -46,7 +56,7 @@ export default class CurrencyPicker extends React.Component {
 
     return (
       <Select
-        styles={customStyle}
+        styles={customStyle(this.props.className)}
         options={moneyOptions}
         onChange={this.handleSelect}
         value={selectedOption}
@@ -57,5 +67,10 @@ export default class CurrencyPicker extends React.Component {
 }
 
 CurrencyPicker.propTypes = {
+  className: PropTypes.string,
   handleCurrencySelected: PropTypes.func.isRequired
+}
+
+CurrencyPicker.defaultProps = {
+  className: ''
 }

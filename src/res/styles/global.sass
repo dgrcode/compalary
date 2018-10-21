@@ -6,9 +6,12 @@ $cardBackground: #f8f8f8
 $addCardButtonFontColor: #00000020
 $referenceBackground: #ddd
 $inputBackground: #fff6
+$whiteOpacity: #fff4
+$fontColor: rgba(0, 0, 0, .87)
 
 body
   font-family: Roboto
+  color: $fontColor
   padding: 0
   margin: 0
 
@@ -16,6 +19,9 @@ body
   display: flex
   justify-content: center
   align-items: center
+
+.spaceBetween
+  justify-content: space-between
 
 .marginRight
   margin-right: 8px
@@ -25,3 +31,13 @@ body
 
 .withMargin
   margin: 8px
+
+.overDark
+  background-color: $whiteOpacity
+  color: white
+
+input[type="text"]
+  max-width: 50%
+  margin-left: 4px
+  border: none
+  border-radius: 2px

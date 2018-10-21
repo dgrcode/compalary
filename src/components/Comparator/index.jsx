@@ -3,24 +3,19 @@ import { PropTypes } from 'prop-types'
 import { connect } from 'react-redux'
 
 import CityCard from '../CityCard'
-import CityCardReference from '../CityCardReference'
 import AddCardButton from '../AddCardButton'
+import './style.sass'
 
 export const Comparator = ({ cards }) => (
-  <div>
-    <div className='flex'>
-      <CityCardReference />
-    </div>
-    <div className='flex'>
-      {
-        Object.keys(cards).map(cardId =>
-          <CityCard key={cardId} cardId={cardId} />
-        )
-      }
-      {Object.keys(cards).length < 4 &&
-        <AddCardButton />
-      }
-    </div>
+  <div className='flex cardList'>
+    {
+      Object.keys(cards).map(cardId =>
+        <CityCard key={cardId} cardId={cardId} />
+      )
+    }
+    {Object.keys(cards).length < 4 &&
+      <AddCardButton />
+    }
   </div>
 )
 

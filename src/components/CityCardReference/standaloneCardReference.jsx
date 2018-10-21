@@ -2,7 +2,7 @@ import React from 'react'
 import { PropTypes } from 'prop-types'
 import { connect } from 'react-redux'
 
-import './style.sass'
+import '../../res/styles/citycard.sass'
 import CitySelector from '../CitySelector'
 import CurrencySelector from '../CurrencySelector'
 
@@ -33,12 +33,14 @@ class CityCardReference extends React.Component {
 
   render () {
     return (
-      <div className='refInHeader'>
-        <CitySelector className='overDark withMargin' handleCitySelected={this.handleCitySelected} />
-        <div className='withMargin flex'>
+      <div className='citycard reference'>
+        <div className='flex'>
+          <CitySelector className='growWidth marginRight' handleCitySelected={this.handleCitySelected} />
+          <CurrencySelector handleCurrencySelected={this.handleCurrencySelected} />
+        </div>
+        <div className='withMargin'>
           Salary:
-          <input className='marginRight overDark' type='text' value={this.props.referenceSalary} onChange={this.handleSalaryChanged} />
-          <CurrencySelector className='overDark' handleCurrencySelected={this.handleCurrencySelected} />
+          <input type='text' value={this.props.referenceSalary} onChange={this.handleSalaryChanged} />
         </div>
       </div>
     )
@@ -46,11 +48,11 @@ class CityCardReference extends React.Component {
 }
 
 CityCardReference.propTypes = {
-  referenceSalary: PropTypes.number.isRequired,
   onSalaryChanged: PropTypes.func.isRequired,
-  resetReferenceCity: PropTypes.func.isRequired,
   updateReferenceCity: PropTypes.func.isRequired,
-  updateReferenceCurrency: PropTypes.func.isRequired
+  updateReferenceCurrency: PropTypes.func.isRequired,
+  resetReferenceCity: PropTypes.func.isRequired,
+  referenceSalary: PropTypes.number.isRequired
 }
 
 const mapStateToProps = state => ({
