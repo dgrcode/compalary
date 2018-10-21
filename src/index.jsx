@@ -8,7 +8,7 @@ import './res/styles/global.sass'
 import rentIndexData from '../data/rentIndex.json'
 import reducer from './reducers'
 import Header from './components/Header'
-import Comparator from './components/Comparator'
+import CardList from './components/CardList'
 import Footer from './components/Footer'
 import { currencyConversionUrl } from './utils'
 
@@ -40,7 +40,7 @@ const App = ({ store }) => (
   <Provider store={store}>
     <React.Fragment>
       <Header />
-      <Comparator />
+      <CardList />
       <Footer />
     </React.Fragment>
   </Provider>
