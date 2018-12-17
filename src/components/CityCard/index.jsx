@@ -38,6 +38,9 @@ class CityCard extends React.Component {
           <CitySelector className='growWidth marginRight' handleCitySelected={this.handleCitySelected} />
           <CurrencyPicker handleCurrencySelected={this.handleCurrencySelected} />
         </div>
+        <div className='withMargin'>Cost of living: {this.props.computed ? this.props.computed.costOfLiving : 0}</div>
+        <div className='withMargin'>Cost of living with rent: {this.props.computed ? this.props.computed.costOfLivingPlusRent : 0}</div>
+        <div className='withMargin'>Groceries: {this.props.computed ? this.props.computed.groceries : 0}</div>
         <div className='withMargin'>Gitlab: {this.props.computed ? this.props.computed.gitlab : 0}</div>
       </div>
     )

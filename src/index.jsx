@@ -5,18 +5,19 @@ import { Provider } from 'react-redux'
 import { PropTypes } from 'prop-types'
 
 import './res/styles/global.sass'
-import rentIndexData from '../data/rentIndex.json'
+import citiesData from '../data/citiesData.json'
 import reducer from './reducers'
 import Header from './components/Header'
 import CardList from './components/CardList'
+import FormulaDefinitions from './components/FormulaDefinitions'
 import Footer from './components/Footer'
 import { currencyConversionUrl } from './utils'
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 store.dispatch({
-  type: 'DATA_RENT_INDEX',
-  payload: { rentIndexData }
+  type: 'CITIES_DATA',
+  payload: { citiesData }
 })
 
 const addCurrencyExchange = (currencyA, currencyB) => {
@@ -41,6 +42,7 @@ const App = ({ store }) => (
     <React.Fragment>
       <Header />
       <CardList />
+      <FormulaDefinitions />
       <Footer />
     </React.Fragment>
   </Provider>

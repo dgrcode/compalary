@@ -25,7 +25,7 @@ class CitySelector extends React.Component {
     return (
       <div className={`citySelector ${this.props.className}`}>
         <CityPicker
-          cities={this.props.rentIndexData}
+          cities={this.props.citiesData}
           handleCityChange={this.handleCityChange}
         />
       </div>
@@ -34,13 +34,13 @@ class CitySelector extends React.Component {
 }
 
 CitySelector.propTypes = {
-  rentIndexData: PropTypes.array.isRequired,
+  citiesData: PropTypes.array.isRequired,
   handleCitySelected: PropTypes.func.isRequired,
   className: PropTypes.string
 }
 
 const mapStateToProps = state => ({
-  rentIndexData: state.data.rentIndexData
+  citiesData: state.data.citiesData
 })
 
 export default connect(mapStateToProps)(CitySelector)

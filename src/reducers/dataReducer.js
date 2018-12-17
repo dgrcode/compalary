@@ -1,13 +1,13 @@
 const defaultState = {
-  rentIndexData: {},
+  citiesData: {},
   exchangeRate: { from: {} }
 }
 
 const dataReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case 'DATA_RENT_INDEX':
+    case 'CITIES_DATA':
       return Object.assign({}, state, {
-        rentIndexData: action.payload.rentIndexData
+        citiesData: action.payload.citiesData
       })
 
     case 'EXCHANGE_RATE_UPDATE':
