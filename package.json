@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "babel-core": "^6.26.3",
+    "babel-polyfill": "^6.26.0",
     "immer": "^1.7.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",

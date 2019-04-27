@@ -1,60 +1,27 @@
+import { produce } from 'immer'
+import {
+  SET_EXCHANGE_RATES
+} from '../actions/dataActions'
+
 const defaultState = {
   citiesData: {},
-  exchangeRate: { from: {} }
+  exchangeRates: {},
+  areExchangeRatesUpToDate: undefined
 }
 
-const dataReducer = (state = defaultState, action) => {
-  switch (action.type) {
-    case 'CITIES_DATA':
-      return Object.assign({}, state, {
-        citiesData: action.payload.citiesData
-      })
+const dataReducer = (state = defaultState, action) =>
+  produce(state, draft => {
+    switch (action.type) {
+      case 'CITIES_DATA':
+        draft.citiesData = action.payload.citiesData
+        break
 
-    case 'EXCHANGE_RATE_UPDATE':
-      const {
-        currencyFrom,
-        currencyTo,
-        value
-      } = action.payload
-
-      const nextState = { ...state }
-
-      if (!nextState.exchangeRate.from.hasOwnProperty(currencyFrom)) {
-        nextState.exchangeRate.from[currencyFrom] = { to: {
-          [currencyFrom]: 1
-        } }
-      }
-
-      if (!nextState.exchangeRate.from.hasOwnProperty(currencyTo)) {
-        nextState.exchangeRate.from[currencyTo] = { to: {
-          [currencyTo]: 1
-        } }
-      }
-
-      return {
-        ...nextState,
-        exchangeRate: {
-          from: {
-            ...nextState.exchangeRate.from,
-            [currencyFrom]: {
-              to: {
-                ...nextState.exchangeRate.from[currencyFrom].to,
-                [currencyTo]: value
-              }
-            },
-            [currencyTo]: {
-              to: {
-                ...nextState.exchangeRate.from[currencyTo].to,
-                [currencyFrom]: 1 / value
-              }
-            }
-          }
-        }
-      }
-
-    default:
-      return state
-  }
-}
+      case SET_EXCHANGE_RATES:
+        draft.exchangeRates = action.payload.rates
+        draft.exchangeRates.EUR = 1
+        draft.areExchangeRatesUpToDate = action.payload.isUpToDate
+        break
+    }
+  })
 
 export default dataReducer

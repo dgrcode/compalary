@@ -12,6 +12,13 @@ const computeGroceriesSalary = (refSalary, refGroceriesIdx, groceriesIdx) =>
 const computeGitlabSalary = (refSalary, refRentIdx, rentIdx, sfRentIdx) =>
   Math.round(refSalary * (0.7 * rentIdx / sfRentIdx + 0.3) / (0.7 * refRentIdx / sfRentIdx + 0.3))
 
+const getExchangeRate = state => ({
+  from: fromCurrency => ({
+    to: toCurrency =>
+      state.data.exchangeRates[toCurrency] / state.data.exchangeRates[fromCurrency]
+  })
+})
+
 export const equivalentSalary = (state, cardId) => {
   const referenceData = state.reference
   if (!referenceData.cityInfo || !referenceData.currency) return {}
@@ -22,7 +29,7 @@ export const equivalentSalary = (state, cardId) => {
   const cardState = state.card[cardId]
   if (!cardState.cityInfo || !cardState.currency) return {}
 
-  const exchangeRate = state.data.exchangeRate.from[referenceData.currency].to[cardState.currency]
+  const exchangeRate = getExchangeRate(state).from(referenceData.currency).to(cardState.currency)
 
   const refRentIdx = referenceData.cityInfo.indices.rent
   const refCostOfLivingIdx = referenceData.cityInfo.indices.costOfLiving
