@@ -32,18 +32,29 @@ class CityCard extends React.Component {
   }
 
   render () {
+    const {
+      cardId,
+      computed,
+      visible
+    } = this.props
+
+    const visibleSet = new Set(visible)
+
     return (
       <div className='citycard'>
-        <RemoveCardButton cardId={this.props.cardId} />
+        <RemoveCardButton cardId={cardId} />
         <div className='flex'>
           <CitySelector className='growWidth marginRight' handleCitySelected={this.handleCitySelected} />
           <CurrencyPicker handleCurrencySelected={this.handleCurrencySelected} />
         </div>
-        {Object.entries(comparisons).map(([key, comparison]) => (
-          <div className='withMargin'>
-            {comparison.title}: {this.props.computed ? this.props.computed[key] : 0}
-          </div>
-        ))}
+        {Object.entries(comparisons).map(([comparisonKey, comparison]) =>
+          visibleSet.has(comparisonKey) &&
+          (
+            <div className='withMargin' key={comparisonKey}>
+              {comparison.title}: {computed ? computed[comparisonKey] : 0}
+            </div>
+          )
+        )}
       </div>
     )
   }
@@ -54,11 +65,13 @@ CityCard.propTypes = {
   cardId: PropTypes.string.isRequired,
   updateCitySelected: PropTypes.func.isRequired,
   updateCurrencySelected: PropTypes.func.isRequired,
-  resetCityInfo: PropTypes.func.isRequired
+  resetCityInfo: PropTypes.func.isRequired,
+  visible: PropTypes.arrayOf(PropTypes.string).isRequired
 }
 
 const mapStateToProps = (state, { cardId }) => ({
-  computed: equivalentSalary(state, cardId)
+  computed: equivalentSalary(state, cardId),
+  visible: state.comparison.visible
 })
 
 const mapDispatchToProps = dispatch => ({

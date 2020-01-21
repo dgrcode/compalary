@@ -1,5 +1,4 @@
 import React from 'react'
-import FormulaCell from '../components/FormulaDefinitions/FormulaCell'
 import Var from '../components/FormulaDefinitions/Var'
 
 const sfRentIdx = 106.49
