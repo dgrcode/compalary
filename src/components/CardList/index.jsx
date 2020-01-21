@@ -6,6 +6,8 @@ import CityCard from '../CityCard'
 import AddCardButton from '../AddCardButton'
 import './style.sass'
 
+const MAX_CARDS_COUNT = 6
+
 export const Comparator = ({ cards }) => (
   <div className='flex cardList'>
     {
@@ -13,7 +15,7 @@ export const Comparator = ({ cards }) => (
         <CityCard key={cardId} cardId={cardId} />
       )
     }
-    {Object.keys(cards).length < 4 &&
+    {Object.keys(cards).length < MAX_CARDS_COUNT &&
       <AddCardButton />
     }
   </div>
