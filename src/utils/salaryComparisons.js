@@ -20,17 +20,11 @@ const computeGitlabSalary = (refSalary, refRentIdx, rentIdx, sfRentIdx) =>
 const comparisons = {
   costOfLiving: {
     title: '💰Cost of living',
-    formula: (
-      <FormulaCell
-        title='💰Cost of living'
-        description={() =>
-          <p>If salary was proportional to the cost of living</p>
-        }
-        formula={() =>
-          <React.Fragment>
-            <Var>costOfLiving</Var> / <Var>referenceCostOfLiving</Var>
-          </React.Fragment>
-        } />
+    description: () => <p>If salary was proportional to the cost of living</p>,
+    formulaNode: () => (
+      <React.Fragment>
+        <Var>costOfLiving</Var> / <Var>referenceCostOfLiving</Var>
+      </React.Fragment>
     ),
     computation:
       ({ refSalary, refCostOfLivingIdx, costOfLivingIdx, exchangeRate }) =>
@@ -38,16 +32,11 @@ const comparisons = {
   },
   costOfLivingPlusRent: {
     title: '🏠Cost of living with rent',
-    formula: (
-      <FormulaCell
-        title='🏠Cost of living with rent'
-        description={() =>
-          <p>If salary was proportional to the cost of living including rent</p>}
-        formula={() =>
-          <React.Fragment>
-            <Var>costOfLivingPlusRent</Var> / <Var>referenceCostOfLivingPlusRent</Var>
-          </React.Fragment>
-        } />
+    description: () => <p>If salary was proportional to the cost of living including rent</p>,
+    formulaNode: () => (
+      <React.Fragment>
+        <Var>costOfLivingPlusRent</Var> / <Var>referenceCostOfLivingPlusRent</Var>
+      </React.Fragment>
     ),
     computation:
       ({ refSalary, refCostOfLivingPlusRentIdx, costOfLivingPlusRentIdx, exchangeRate }) =>
@@ -55,16 +44,11 @@ const comparisons = {
   },
   groceries: {
     title: '🛒Groceries',
-    formula: (
-      <FormulaCell
-        title='🛒Groceries'
-        description={() =>
-          <p>Salary that would allow to buy same amount of groceries in both cities</p>}
-        formula={() =>
-          <React.Fragment>
-            <Var>groceriesIndex</Var> / <Var>referenceGroceriesIndex</Var>
-          </React.Fragment>
-        } />
+    description: () => <p>Salary that would allow to buy same amount of groceries in both cities</p>,
+    formulaNode: () => (
+      <React.Fragment>
+        <Var>groceriesIndex</Var> / <Var>referenceGroceriesIndex</Var>
+      </React.Fragment>
     ),
     computation:
       ({ refSalary, refGroceriesIdx, groceriesIdx, exchangeRate }) =>
@@ -72,16 +56,11 @@ const comparisons = {
   },
   gitlab: {
     title: '🚀Gitlab',
-    formula: (
-      <FormulaCell
-        title='🚀Gitlab'
-        description={() =>
-          <p>Equivalent salary to the reference salary using <a target='_blank' href='https://about.gitlab.com/2018/03/23/gitlabs-global-compensation-calculator-the-next-iteration/'>gitlab's formula</a></p>}
-        formula={() =>
-          <React.Fragment>
-            0.7 * (<Var>rentIndex</Var> / <Var>sfRendIndex</Var> + 0.3) / (<Var>referenceRentIndex</Var> / <Var>sfRendIndex</Var> + 0.3)
-          </React.Fragment>
-        } />
+    description: () => <p>Equivalent salary to the reference salary using <a target='_blank' href='https://about.gitlab.com/2018/03/23/gitlabs-global-compensation-calculator-the-next-iteration/'>gitlab's formula</a></p>,
+    formulaNode: () => (
+      <React.Fragment>
+      0.7 * (<Var>rentIndex</Var> / <Var>sfRendIndex</Var> + 0.3) / (<Var>referenceRentIndex</Var> / <Var>sfRendIndex</Var> + 0.3)
+      </React.Fragment>
     ),
     computation: ({ refSalary, refRentIdx, rentIdx, exchangeRate }) =>
       Math.round(computeGitlabSalary(refSalary, refRentIdx, rentIdx, sfRentIdx) * exchangeRate).toLocaleString() }
