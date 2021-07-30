@@ -1,9 +1,6 @@
 # Node modules
 node_modules
 
-# Packager files
-package-lock.json
-
 # Private files
 .*
 !.gitignore
