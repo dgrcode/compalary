@@ -9,5 +9,8 @@
     "browser": true,
     "jest": true
   },
-  "extends": ["standard", "standard-react"]
+  "extends": ["standard", "standard-react"],
+  "rules": {
+    "comma-dangle": "off"
+  }
 }

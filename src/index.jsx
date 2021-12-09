@@ -13,15 +13,16 @@ import Header from './components/Header'
 import CardList from './components/CardList'
 import FormulaDefinitions from './components/FormulaDefinitions'
 import Footer from './components/Footer'
-import {
-  setExchangeRates
-} from './actions/dataActions'
+import { setExchangeRates } from './actions/dataActions'
 
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 
 store.dispatch({
   type: 'CITIES_DATA',
-  payload: { citiesData }
+  payload: { citiesData },
 })
 
 const fetchUpdatedExchangeRates = async () => {
@@ -29,22 +30,28 @@ const fetchUpdatedExchangeRates = async () => {
   try {
     const response = await fetch('https://api.exchangeratesapi.io/latest')
     if (response.status < 200 || response.status > 299) {
-      throw new Error('Exchange rates api - unsuccessful response. Using fallback data')
+      throw new Error(
+        'Exchange rates api - unsuccessful response. Using fallback data'
+      )
     }
     parsedResponse = await response.json()
   } catch (error) {
     console.warn(error.message)
-    store.dispatch(setExchangeRates({
-      rates: fallbackExchangeRates,
-      isUpToDate: false
-    }))
+    store.dispatch(
+      setExchangeRates({
+        rates: fallbackExchangeRates,
+        isUpToDate: false,
+      })
+    )
     return
   }
 
-  store.dispatch(setExchangeRates({
-    rates: parsedResponse.rates,
-    isUpToDate: true
-  }))
+  store.dispatch(
+    setExchangeRates({
+      rates: parsedResponse.rates,
+      isUpToDate: true,
+    })
+  )
 }
 fetchUpdatedExchangeRates()
 
@@ -60,10 +67,7 @@ const App = ({ store }) => (
 )
 
 App.propTypes = {
-  store: PropTypes.object.isRequired
+  store: PropTypes.object.isRequired,
 }
 
-ReactDOM.render(
-  <App store={store} />,
-  document.getElementById('root')
-)
+ReactDOM.render(<App store={store} />, document.getElementById('root'))

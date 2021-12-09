@@ -1,12 +1,10 @@
 import { produce } from 'immer'
-import {
-  SET_EXCHANGE_RATES
-} from '../actions/dataActions'
+import { SET_EXCHANGE_RATES } from '../actions/dataActions'
 
 const defaultState = {
   citiesData: {},
   exchangeRates: {},
-  areExchangeRatesUpToDate: undefined
+  areExchangeRatesUpToDate: undefined,
 }
 
 const dataReducer = (state = defaultState, action) =>
