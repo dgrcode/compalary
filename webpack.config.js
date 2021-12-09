@@ -4,16 +4,17 @@ const path = require('path')
 
 module.exports = {
   mode: 'development',
-  devtool: 'inline-sourcemap',
+  devtool: 'inline-source-map',
   entry: {
     index: path.join(__dirname, 'src', 'index.jsx')
   },
   devServer: {
-    inline: true,
     hot: true,
     compress: true,
     port: 3334,
-    contentBase: path.join(__dirname, 'dist'),
+    static: {
+      directory : path.join(__dirname, 'dist')
+    },
     historyApiFallback: {
       index: '/index.html'
     }
@@ -45,9 +46,6 @@ module.exports = {
         use: ['style-loader', 'css-loader']
       }
     ]
-  },
-  node: {
-    fs: 'empty'
   },
   resolve: {
     extensions: ['.js', '.jsx']
