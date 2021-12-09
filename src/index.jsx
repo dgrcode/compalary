@@ -28,7 +28,7 @@ store.dispatch({
 const fetchUpdatedExchangeRates = async () => {
   let parsedResponse
   try {
-    const response = await fetch('https://api.exchangeratesapi.io/latest')
+    const response = await fetch('https://open.er-api.com/v6/latest/EUR')
     if (response.status < 200 || response.status > 299) {
       throw new Error(
         'Exchange rates api - unsuccessful response. Using fallback data'

@@ -16,7 +16,6 @@ const dataReducer = (state = defaultState, action) =>
 
       case SET_EXCHANGE_RATES:
         draft.exchangeRates = action.payload.rates
-        draft.exchangeRates.EUR = 1
         draft.areExchangeRatesUpToDate = action.payload.isUpToDate
         break
     }
