@@ -109,7 +109,7 @@ const main = async () => {
         const [cityName, ...cityStateAndCountry] = cityFullName
           .split(',')
           .map(str => str.trim())
-        cityData.name = cityName
+        cityData.city = cityName
         cityData.country = cityStateAndCountry.pop()
         if (cityStateAndCountry.length > 0) {
           cityData.state = cityStateAndCountry.pop()
