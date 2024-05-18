@@ -1,0 +1,8 @@
+# How to update the data from Numbeo
+
+1. Run the script dataExtract.js.
+2. Check the files `citiesData.json` and `citiesData_readable.json`.
+3. If they look good, move `citiesData.json` to the `data` folder.
+4. Done
+
+*Don't forget to re-build the bundle, or it'll be using stale data!
